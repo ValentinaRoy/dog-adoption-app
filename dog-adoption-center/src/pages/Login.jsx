@@ -1,7 +1,8 @@
 import React,{useState} from 'react'
 import axios from 'axios';
 import {toast} from 'react-hot-toast'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
 export default function Login() {
     const navigate = useNavigate()
     const [data,setData] = useState({
@@ -23,7 +24,7 @@ export default function Login() {
           else{
             setData({});
             toast.success('Login successfully !')
-            navigate('/')
+            navigate('/dashboard')
           }
         } catch (error) {
           
@@ -38,6 +39,12 @@ export default function Login() {
         <input type='password' placeholder='Enter password' value={data.password} onChange={(e)=> setData({...data,password:e.target.value})}/>
         <button type='submit' >Submit</button>
       </form>
+
+      <br/>
+      <p><span><Link to='/forgotPassword'>Forgot Password</Link></span></p>
+      <p>OR</p>
+      <p>New User? <span><Link to='/register'>Create Account</Link></span></p>
+
     </div>
   )
 }
