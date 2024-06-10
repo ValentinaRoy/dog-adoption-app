@@ -44,7 +44,6 @@ export default function Footer() {
       <ul>
           <li><Link to="/donate">Donate</Link></li>
           <li><Link to="/volunteer">Volunteer</Link></li>
-        
       </ul>
       
     </div>

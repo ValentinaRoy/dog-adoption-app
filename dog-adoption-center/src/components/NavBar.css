@@ -7,11 +7,16 @@
     background-color: #e07a5f;
     height: 60px;
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
     align-items: center;
     margin-top: 0;
   }
 
+  .logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
   .menu-bars {
     margin-right: 2rem;
@@ -95,6 +100,9 @@
     .nav-menu-items li a {
         font-size: 16px;
     }
+    .logo img{
+        max-width: 35px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -117,5 +125,12 @@
 
     .nav-menu-items li a {
         font-size: 14px;
+    }
+
+    .logo h1{
+        font-size:20px ;
+    }
+    .logo img{
+        max-width: 30px;
     }
 }

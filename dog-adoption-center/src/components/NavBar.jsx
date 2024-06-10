@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import './NavBar.css'; 
+import logo from '../assets/logo.png'
 
 export default function NavBar() {
   const [sidebar, setSidebar] = useState(false);
@@ -11,7 +12,8 @@ export default function NavBar() {
   return (
     <>
       <div className="navbar">
-        
+        <div className='logo'><img src={logo} alt='logo' style={{maxHeight:'50px',marginLeft:'5px'}}></img><h1 style={{color:'#3d405b'}}>Forever Paws</h1></div>
+
         <Link to="#" className="menu-bars">
           <FaBars onClick={showSidebar} />
         </Link>

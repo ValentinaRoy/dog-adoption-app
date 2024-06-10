@@ -32,10 +32,12 @@
 }
   
 .support li{
-    text-decoration: underline;
     color: #f4f1de;
 }
 
+.support li  :visited{
+    text-decoration: none;
+}
 .social-media-links {
     margin-top: 10px;
 }

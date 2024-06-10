@@ -1,0 +1,57 @@
+.loginPage{
+    background-color: #f4f1de6d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #f4f1de;
+}
+
+.loginCard{
+    padding: 20px;
+    margin: 100px;
+    width: 500px;
+    background-color: #3d405b;
+    height: 500px;
+    border-radius: 10px;
+    
+}
+
+.form{
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form input[type="email"]{
+    width:300px;
+    margin: 10px 0;
+}
+.form input[type="password"]{
+    width:300px;
+    padding: 10px 20px ;
+    border-radius: 4px;
+    border: none;
+    margin: 10px 0;
+}
+
+.form button{
+    width:300px;
+    margin: 10px 0 30px 0;
+}
+
+.loginBottom{
+    text-align: center;
+    margin-top: 100px;
+    
+}
+
+.loginBottom p{
+    color: #f4f1de;
+    text-decoration: none;
+}
+
+.link{
+    text-decoration: none;
+    color: #e07a5f;
+}
