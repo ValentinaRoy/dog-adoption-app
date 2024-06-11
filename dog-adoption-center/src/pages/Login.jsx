@@ -23,9 +23,9 @@ export default function Login() {
             toast.error(data.error);
           }
           else{
-            setData({});
+            setData({...data, password: '' });
             toast.success('Login successfully !')
-            navigate('/dashboard')
+            navigate('/')
           }
         } catch (error) {
           
@@ -36,12 +36,12 @@ export default function Login() {
       <div className='loginCard'>
         <h1 style={{textAlign:'center'}}>Login</h1>
         <div className='form'>
-          <form onSubmit={loginUser} className='loginForm'>
+          <form onSubmit={loginUser} >
             <label>Email</label>
             <input type='email' placeholder='Enter email' value={data.email} onChange={(e)=> setData({...data,email:e.target.value})}/>
             <label>Password</label>
             <input type='password' placeholder='Enter password' value={data.password} onChange={(e)=> setData({...data,password:e.target.value})}/>
-            <button type='submit' >Submit</button>
+            <button type='submit' >Login</button>
           </form>
         </div>
         <div className='loginBottom'>

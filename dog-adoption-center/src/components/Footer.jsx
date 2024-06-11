@@ -27,7 +27,7 @@ export default function Footer() {
     </div>
     <div className="subscribe">
       <h4>Stay Connected</h4>
-      <form>
+      <form className='subscribe-form'>
         <input type="email" placeholder="Subscribe to our newsletter" />
         <button type="submit">Subscribe</button>
       </form>
