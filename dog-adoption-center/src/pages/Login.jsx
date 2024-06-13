@@ -22,13 +22,16 @@ export default function Login() {
           if(data.error){
             toast.error(data.error);
           }
+          
           else{
             setData({...data, password: '' });
             toast.success('Login successfully !')
-            navigate('/')
+            
+            navigate('/browse')
+            window.location.reload();
           }
         } catch (error) {
-          
+          console.log(error);
         }
     }
   return (

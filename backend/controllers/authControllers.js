@@ -1,10 +1,10 @@
 const User = require('../modules/user');
 const {hashPassword,comparePassword } = require('../helpers/auth')
 const jwt = require('jsonwebtoken')
+const nodemailer = require('nodemailer');
+const crypto = require('crypto');
 
-const test = (req,res) =>{
-    res.json('test is working');
-}
+
 
 //register endpoint
 const registerUser = async (req,res) =>{
@@ -101,7 +101,13 @@ const loginUser = async (req,res) =>{
         console.log(error)
     }
 }
+ // logout endpoint
 
+const logoutUser = (req, res) => {
+    res.clearCookie('token').json({ message: 'Logged out successfully' });
+};
+  
+ 
 const getProfile = (req,res) =>{
     const {token} = req.cookies
     if(token) {
@@ -119,9 +125,74 @@ const getProfile = (req,res) =>{
 
 }
 
+// Configure nodemailer
+const transporter = nodemailer.createTransport({
+    service: 'Gmail', // or any other email service
+    auth: {
+        user: process.env.EMAIL,
+        pass: process.env.EMAIL_PASSWORD,
+    },
+});
+
+// Function to send OTP
+const sendOTP = async (email, otp) => {
+    const mailOptions = {
+        from: process.env.EMAIL,
+        to: email,
+        subject: 'Password Reset OTP',
+        text: `Your OTP for password reset is: ${otp}. This OTP is valid for 10 minutes.`,
+    };
+    await transporter.sendMail(mailOptions);
+};
+
+// Request OTP for password reset
+const requestPasswordReset = async (req, res) => {
+    console.log('Request received:', req.body);
+    const { email } = req.body;
+    const user = await User.findOne({ email });
+    if (!user) {
+        return res.json({ error: 'User does not exist' });
+    }
+
+    const otp = crypto.randomInt(100000, 999999).toString();
+    const otpExpiry = Date.now() + 10 * 60 * 1000; // OTP valid for 10 minutes
+
+    user.resetOTP = otp;
+    user.otpExpiry = otpExpiry;
+    await user.save();
+
+    await sendOTP(email, otp);
+    res.json({ message: 'OTP sent to email' });
+};
+
+// Verify OTP and reset password
+const resetPassword = async (req, res) => {
+    console.log('Request reserreceived:', req.body);
+    const { email, otp, newPassword } = req.body;
+    const user = await User.findOne({ email });
+    if (!user) {
+        return res.json({ error: 'User does not exist' });
+    }
+
+    if (user.resetOTP !== otp || Date.now() > user.otpExpiry) {
+        return res.json({ error: 'Invalid or expired OTP' });
+    }
+
+    const hashedPassword = await hashPassword(newPassword);
+    user.password = hashedPassword;
+    user.resetOTP = undefined;
+    user.otpExpiry = undefined;
+    await user.save();
+
+    res.json({ message: 'Password reset successfully' });
+};
 module.exports={
-    test,
+   
     registerUser,
     loginUser,
-    getProfile
+    getProfile,
+    logoutUser,
+    sendOTP,
+    resetPassword,
+    requestPasswordReset
 }

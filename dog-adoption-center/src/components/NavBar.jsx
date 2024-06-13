@@ -1,15 +1,34 @@
 import React, { useState, useContext} from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import './NavBar.css'; 
 import logo from '../assets/logo.png'
 import { UserContext } from '../../context/userContext';
+import toast from 'react-hot-toast';
+import axios from 'axios';
+
 
 export default function NavBar() {
-  const [sidebar, setSidebar] = useState(false);
-
-  const showSidebar = () => setSidebar(!sidebar);
+  const [dropdown, setDropdown] = useState(false);
+  const navigate = useNavigate();
   const {user} = useContext(UserContext);
+
+  const onClick = async() =>{
+    
+    try {
+      const response = await axios.post('/logout', {}, { withCredentials: true });
+      if (response.data.message) {
+        toast.success('Logged out successfully!');
+        navigate('/login'); 
+        window.location.reload();
+      } else {
+        toast.error('Failed to log out');
+      }
+    } catch (error) {
+      toast.error('Error logging out');
+      console.error('Error logging out:', error);
+    }
+  }
   return (
     <>
       <div className="navbar">
@@ -19,30 +38,30 @@ export default function NavBar() {
         </div>
         <span style={{color:'#3d405b'}} className='welcome'>{!!user && ( <h2>Welcome&nbsp;{user.name} &nbsp;</h2>)}
           <Link to="#" className="menu-bars">
-            <FaBars onClick={showSidebar} />
+            {dropdown ? <FaTimes onClick={() => setDropdown(!dropdown)} /> : <FaBars onClick={() => setDropdown(!dropdown)} />}
           </Link>
         </span>
       </div>
-      <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
+      <nav className={dropdown ? 'nav-menu active' : 'nav-menu'}>
         
-        <ul className="nav-menu-items" onClick={showSidebar}>
-          <li className="navbar-toggle">
-            <Link to="#" className="close-btn" style={{justifyContent:'end',backgroundColor:'#f4f1de',color:'#e07a5f',height:'60px'}}>
-              <FaTimes />
-            </Link>
+        <ul className="nav-menu-items" >
+          <li>
+            <Link to="/" onClick={() => setDropdown(false)} >Home</Link>
           </li>
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/login" onClick={() => setDropdown(false)} >Login</Link>
           </li>
           <li>
-            <Link to="/login">Login</Link>
+            <Link to="/browse" onClick={() => setDropdown(false)} >Browse</Link>
           </li>
           <li>
-            <Link to="/search">Browse</Link>
+            <Link to="/register" onClick={() => setDropdown(false)} >Register</Link>
           </li>
-          <li>
-            <Link to="/register">Register</Link>
-          </li>
+          {user &&
+          (<li>
+              <button className="logout-btn" onClick={onClick}>Logout</button>
+          </li>)
+          }
         </ul>
       </nav>
     </>
