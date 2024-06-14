@@ -63,9 +63,9 @@ form {
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    width: 200px;
+    width: 300px;
 }
-  
+
 form button {
     padding: 8px;
     border: none;
@@ -87,7 +87,6 @@ form button:hover {
         flex-direction: column;
         align-items: center;
         min-width: 100%;
-        margin: 10px 0;
         text-align: center;
     }
   

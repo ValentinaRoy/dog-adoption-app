@@ -101,13 +101,13 @@ const loginUser = async (req,res) =>{
         console.log(error)
     }
 }
- // logout endpoint
 
+// logout endpoint
 const logoutUser = (req, res) => {
     res.clearCookie('token').json({ message: 'Logged out successfully' });
 };
   
- 
+//get profile details
 const getProfile = (req,res) =>{
     const {token} = req.cookies
     if(token) {
@@ -127,17 +127,18 @@ const getProfile = (req,res) =>{
 
 // Configure nodemailer
 const transporter = nodemailer.createTransport({
-    service: 'Gmail', // or any other email service
+    host: 'smtp.mailtrap.io', 
+    port: 2525,
     auth: {
-        user: process.env.EMAIL,
-        pass: process.env.EMAIL_PASSWORD,
+        user: process.env.USER,
+        pass: process.env.PASSWORD,
     },
 });
 
 // Function to send OTP
 const sendOTP = async (email, otp) => {
     const mailOptions = {
-        from: process.env.EMAIL,
+        from: 'test@example.com',
         to: email,
         subject: 'Password Reset OTP',
         text: `Your OTP for password reset is: ${otp}. This OTP is valid for 10 minutes.`,
@@ -147,7 +148,6 @@ const sendOTP = async (email, otp) => {
 
 // Request OTP for password reset
 const requestPasswordReset = async (req, res) => {
-    console.log('Request received:', req.body);
     const { email } = req.body;
     const user = await User.findOne({ email });
     if (!user) {
@@ -167,7 +167,6 @@ const requestPasswordReset = async (req, res) => {
 
 // Verify OTP and reset password
 const resetPassword = async (req, res) => {
-    console.log('Request reserreceived:', req.body);
     const { email, otp, newPassword } = req.body;
     const user = await User.findOne({ email });
     if (!user) {

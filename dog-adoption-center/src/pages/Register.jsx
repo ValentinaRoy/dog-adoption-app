@@ -3,6 +3,7 @@ import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import './Register.css';
+import { Link } from 'react-router-dom';
 
 export default function Register() {
   
@@ -35,9 +36,9 @@ export default function Register() {
     }
   return (
     <div className='register'>
-      <div className='registerForm'>
+      <div className='registerFormCard'>
         <h1 style={{textAlign:'center'}}>Register</h1>
-        <form onSubmit={registerUser} >
+        <form onSubmit={registerUser} className='registerForm'>
           <label>Name</label>
           <input type='text' placeholder='Enter your name' value={data.name} onChange={(e)=> setData({...data,name: e.target.value})}/>
           <label>Email</label>
@@ -46,6 +47,10 @@ export default function Register() {
           <input type='password' placeholder='Enter a password' value={data.password} onChange={(e)=> setData({...data,password: e.target.value})}/>
           <button type='submit'>Create Account</button>
         </form>
+
+        <div className='register-bottom'>
+          <p><Link to='/login' className='link'>Already have an account ? </Link></p>
+        </div>
       </div>
     </div>
   )

@@ -10,6 +10,7 @@
   justify-content: space-between;
   align-items: center;
   margin-top: 0;
+  padding: 0 20px;
 }
 
 .logo{
@@ -36,10 +37,12 @@
   transition: max-height 0.3s ease-in-out;
   z-index: 1;
   border-radius: 0 0 4px 4px;
+  padding: 0 10px;
 }
   
 .nav-menu.active {
   max-height: 400px;
+  
 }
   
 .nav-menu-items {
@@ -101,8 +104,9 @@
 
     .nav-menu {
         width: 200px;
+        top:50px;
     }
-
+    
     .nav-menu-items li {
         height: 50px;
     }
@@ -113,6 +117,13 @@
     .logo img{
         max-width: 35px;
     }
+
+    .logo h1{
+      font-size: 20px;
+    }
+    .welcome h2{
+      font-size: 16px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -122,11 +133,12 @@
 
     .menu-bars {
         margin-right: 0.5rem;
-        font-size: 1.2rem;
+        font-size: 14px;
     }
 
     .nav-menu {
         width: 150px;
+        top:40px;
     }
 
     .nav-menu-items li {
@@ -138,9 +150,13 @@
     }
 
     .logo h1{
-        font-size:20px ;
+        font-size:16px ;
     }
     .logo img{
         max-width: 30px;
+    }
+
+    .welcome h2{
+      font-size: 14px;
     }
 }

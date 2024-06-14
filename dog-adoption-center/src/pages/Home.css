@@ -1,0 +1,214 @@
+.home-container{
+    background-color: #f4f1de6d;
+}
+.adopt-me-card img{
+    width: 100%;
+}
+
+.adopt-me-card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-card{
+    background-color: #f4f1de;
+    padding: 20px;
+    width: 50%;
+    margin: -40px 0 0 0 ;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #e07a5f;
+    box-shadow:  0 0 10px #d2d0c1 ;
+}
+
+.button-card button{
+    border: none;
+    background-color: #e07a5f;
+    color: #f4f1de;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 200px;
+}
+
+.button-card button:hover{
+    
+    background-color: #df6d4d;
+    color: #f4f1de;
+    
+}
+.how-it-works{
+    margin: 20px;
+    background-color: #f4f1de;
+    padding: 20px;
+    color:#3d405b ;
+}
+.how-it-works h1{
+    text-align: center;
+    margin-top: 10px;
+    
+}
+.list{
+    display: flex;
+    max-width: fit-content;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.step {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+}
+  
+.icon {
+    flex-shrink: 0;
+    width: 50px;
+    height: 50px;
+    font-size: 50px;
+    margin-right: 20px;
+}
+  
+.text {
+    flex-grow: 1;
+}
+.points{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 50px;
+    list-style: none;
+    max-width: 800px;
+}
+
+.advertisement {
+    position: relative;
+    text-align: center;
+    color: #f9f8ef;
+}
+  
+.advertisement img {
+    width: 100%;
+    height: auto;
+}
+  
+.overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+  
+.overlay h1 {
+   
+    margin: 0;
+    text-shadow: 0 0 5px #f4f1de;
+}
+  
+.overlay h3 {
+   
+    margin: 0.5em 0 0;
+}
+@media  (max-width: 768px) {
+    .button-card {
+        padding: 5px 10px;
+        margin: 10px;
+       
+    }
+
+    .button-card h2{
+        font-size: 14px;
+    }
+    .button-card h3{
+        font-size: 12px;
+    }
+    .button-card button{
+         font-size: 12px;
+         width:fit-content;
+    }
+    .overlay h1 {
+   
+        font-size: 18px;
+    }
+      
+    .overlay h3 {
+       
+        font-size: 16px;
+    }
+    .how-it-works img{
+        height: 200px ;
+    }
+    .how-it-works h1{
+        font-size: 18px ;
+    }
+      
+    .icon {
+        
+        width: 30px;
+        height: 30px;
+        
+    }
+      
+    .text {
+        font-size: 12px;
+    }
+}
+
+@media  (max-width: 480px) {
+    .button-card {
+        padding: 2px 5px;
+        margin: 10px;
+       
+    }
+
+    .button-card h2{
+        font-size: 12px;
+    }
+    .button-card h3{
+        font-size: 10px;
+    }
+    .button-card button{
+         font-size: 10px;
+         width:fit-content;
+    }
+    .overlay h1 {
+   
+        font-size: 12px;
+    }
+      
+    .overlay h3 {
+       
+        font-size: 10px;
+    }
+    
+    .how-it-works img{
+        height: 100px ;
+    }
+    .how-it-works h1{
+        font-size: 14px ;
+    }
+    .list{
+        flex-direction: column;
+    }
+    .icon {
+        
+        width: 20px;
+        height: 20px;
+        
+    }
+   .points{
+    margin-left: 10px;
+   }
+    .text {
+        font-size: 10px;
+    }
+}
