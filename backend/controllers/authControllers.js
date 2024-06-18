@@ -1,9 +1,10 @@
 const User = require('../modules/user');
+const Dog = require('../modules/dog');
 const {hashPassword,comparePassword } = require('../helpers/auth')
 const jwt = require('jsonwebtoken')
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
-
+const cloudinary = require('../config/cloudinaryConfig');
 
 
 //register endpoint
@@ -98,7 +99,7 @@ const loginUser = async (req,res) =>{
             })
         }
     } catch (error) {
-        console.log(error)
+        console.log("login error",error)
     }
 }
 
@@ -185,6 +186,45 @@ const resetPassword = async (req, res) => {
 
     res.json({ message: 'Password reset successfully' });
 };
+
+//post dog endpoint
+
+const postDog = async (req,res) =>{
+    try {
+        const { name, email, age, breed, vaccinated, location, contact, description } = req.body;
+        const files = req.files;
+        //check email is registered
+    
+        const exist = await User.findOne({email});
+    
+        if(!exist){
+            return res.json({
+                error:'Please enter registered email'
+            })
+        };
+    
+        const imageUploadPromises = files.map(file => cloudinary.uploader.upload(file.path));
+        const imageUploadResponses = await Promise.all(imageUploadPromises);
+        const imageUrls = imageUploadResponses.map(response => response.secure_url);
+
+        const dog  = await Dog.create({
+            name,
+            email,
+            age,
+            breed,
+            vaccinated,
+            location,
+            contact,
+            description,
+            images: imageUrls
+        })
+
+        return res.json(dog);
+    } catch (error) {
+        console.log(error);
+    }
+    
+}
 module.exports={
    
     registerUser,
@@ -193,5 +233,6 @@ module.exports={
     logoutUser,
     sendOTP,
     resetPassword,
-    requestPasswordReset
+    requestPasswordReset,
+    postDog
 }

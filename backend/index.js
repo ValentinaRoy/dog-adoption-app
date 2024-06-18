@@ -16,7 +16,7 @@ mongoose.connect(process.env.MONGO_URL)
 app.use(express.json()) // parses the data 
 app.use(cookieParser())
 app.use(express.urlencoded({extended:false}))
-
+// app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/',require('./routes/authRoutes'))
 
 
