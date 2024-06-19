@@ -8,6 +8,7 @@ const cloudinary = require('../config/cloudinaryConfig');
 const axios = require('axios');
 
 
+
 //register endpoint
 const registerUser = async (req,res) =>{
     try {
@@ -209,12 +210,19 @@ const postDog = async (req,res) =>{
                 error:'Please enter valid 10-digit number'
             })
         }
-        const imageUploadPromises = files.map(file => cloudinary.uploader.upload(file.path));
-        const imageUploadResponses = await Promise.all(imageUploadPromises);
-        const imageUrls = imageUploadResponses.map(response => response.secure_url);
-
-        const date = new Date().toISOString();
-        const dog  = await Dog.create({
+        const imageUploadPromises = files.map(file => 
+            new Promise((resolve, reject) => {
+              cloudinary.uploader.upload_stream({ resource_type: 'image' }, (error, result) => {
+                if (error) reject(error);
+                else resolve(result.secure_url);
+              }).end(file.buffer);
+            })
+          );
+      
+          const imageUrls = await Promise.all(imageUploadPromises);
+      
+          const date = new Date().toISOString();
+          const dog = await Dog.create({
             name,
             email,
             age,
@@ -222,10 +230,11 @@ const postDog = async (req,res) =>{
             vaccinated,
             location,
             contact,
-            date : date,
+            date: date,
             description,
-            images: imageUrls
-        })
+            images: imageUrls,
+          });
+      
 
         return res.json(dog);
     } catch (error) {
@@ -249,6 +258,32 @@ const getBreeds = async(req,res) =>{
     }
 }
 
+const getDogs = async (req, res) => {
+    try {
+      const dogs = await Dog.find().select('name breed location images age location description contact');
+  
+      res.json(dogs);
+    } catch (error) {
+      console.error('Error fetching dogs:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  };
+  
+  const getDogDetails = async (req, res) => {
+    try {
+      const dogId = req.params.id;
+      const dog = await Dog.findById(dogId);
+  
+      if (!dog) {
+        return res.status(404).json({ error: 'Dog not found' });
+      }
+  
+      res.json(dog);
+    } catch (error) {
+      console.error('Error fetching dog details:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  };
 module.exports={
    
     registerUser,
@@ -259,5 +294,7 @@ module.exports={
     resetPassword,
     requestPasswordReset,
     postDog,
-    getBreeds
+    getBreeds,
+    getDogDetails,
+    getDogs
 }
