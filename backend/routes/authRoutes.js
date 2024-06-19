@@ -9,8 +9,11 @@ const {
     logoutUser,
     requestPasswordReset,
     resetPassword, 
-    postDog
-} = require('../controllers/authControllers')
+    postDog,
+    getBreeds,
+    getCities
+} = require('../controllers/authControllers');
+const { get } = require('mongoose');
 
 const upload = multer({ dest: 'uploads/' });
 //middleware
@@ -29,5 +32,6 @@ router.post('/logout',logoutUser)
 router.post('/requestPasswordReset', requestPasswordReset);
 router.post('/resetPassword', resetPassword);
 router.post('/postDog', upload.array('images', 10), postDog);
+router.get('/breeds',getBreeds);
 
 module.exports = router;

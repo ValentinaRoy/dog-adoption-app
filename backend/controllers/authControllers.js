@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken')
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 const cloudinary = require('../config/cloudinaryConfig');
+const axios = require('axios');
 
 
 //register endpoint
@@ -203,10 +204,16 @@ const postDog = async (req,res) =>{
             })
         };
     
+        if(contact && contact.length !== 10){
+            return res.json({
+                error:'Please enter valid 10-digit number'
+            })
+        }
         const imageUploadPromises = files.map(file => cloudinary.uploader.upload(file.path));
         const imageUploadResponses = await Promise.all(imageUploadPromises);
         const imageUrls = imageUploadResponses.map(response => response.secure_url);
 
+        const date = new Date().toISOString();
         const dog  = await Dog.create({
             name,
             email,
@@ -215,6 +222,7 @@ const postDog = async (req,res) =>{
             vaccinated,
             location,
             contact,
+            date : date,
             description,
             images: imageUrls
         })
@@ -225,6 +233,22 @@ const postDog = async (req,res) =>{
     }
     
 }
+
+const getBreeds = async(req,res) =>{
+    try {
+        const response = await axios.get('https://dog.ceo/api/breeds/list/all');
+        
+        const breeds = Object.keys(response.data.message).map(breed => ({
+            value: breed,
+            label: breed.charAt(0).toUpperCase() + breed.slice(1)
+        }));
+        res.json(breeds);
+    } catch (error) {
+        console.error('Error fetching breeds:', error);
+        res.status(500).json({ error: 'Failed to fetch breeds' });
+    }
+}
+
 module.exports={
    
     registerUser,
@@ -234,5 +258,6 @@ module.exports={
     sendOTP,
     resetPassword,
     requestPasswordReset,
-    postDog
+    postDog,
+    getBreeds
 }
