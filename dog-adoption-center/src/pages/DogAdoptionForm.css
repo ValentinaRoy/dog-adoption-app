@@ -1,0 +1,96 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #f4f1de;
+    padding: 20px;
+    position: relative;
+    overflow-y: auto;
+    width: auto;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+
+.dog-adoption-card {
+    padding: 20px;
+    margin: 25px;
+    width: 500px;
+    background-color: #3d405b;
+    box-sizing: border-box;
+    border-radius: 10px;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #3d405b;
+}
+
+
+.dog-adoption-form {
+    width: 100%;
+}
+
+.dog-adoption-form .input {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.dog-adoption-form label {
+    width: 100px;
+    margin-right: 10px;
+    color:#f4f1de;
+}
+
+
+
+.dog-adoption-form input[type="text"],
+.dog-adoption-form input[type="email"],
+.dog-adoption-form input[type="number"],
+.dog-adoption-form input[type="checkbox"],
+.dog-adoption-form input[type="file"],
+.dog-adoption-form textarea {
+    flex: 1;
+    padding: 10px;
+    margin: 0;
+}
+
+.dog-adoption-form input[type="checkbox"] {
+    flex: none;
+    margin-left: 0;
+}
+
+.dog-adoption-form button {
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #e07a5f;
+    color: #f4f1de;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.dog-adoption-form button:hover {
+    background-color: #f4f1de;
+    color:#e07a5f;
+}
