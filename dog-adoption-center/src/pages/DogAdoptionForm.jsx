@@ -4,7 +4,7 @@ import Select from 'react-select';
 import './DogAdoptionForm.css';
 import { toast } from 'react-hot-toast';
 
-const PostDog = ({ onClose }) => {
+const PostDog = ({ onClose ,fetchDogs }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',

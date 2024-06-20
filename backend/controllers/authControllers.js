@@ -6,9 +6,6 @@ const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 const cloudinary = require('../config/cloudinaryConfig');
 const axios = require('axios');
-
-
-
 //register endpoint
 const registerUser = async (req,res) =>{
     try {
@@ -112,19 +109,12 @@ const logoutUser = (req, res) => {
   
 //get profile details
 const getProfile = (req,res) =>{
-    const {token} = req.cookies
-    if(token) {
-        jwt.verify(token,process.env.JWT_SECRET,{},(err,user)=>{
-            if (err) {
-                console.error('JWT verification failed:', err);
-                return res.status(401).json({ error: 'Unauthorized' });
-            }
-            res.json(user)
-        })
-    }
-    else{
-        res.json(null)
-    }
+   
+    if (req.user) {
+        res.json(req.user);
+      } else {
+        res.status(401).json({ error: 'Unauthorized' });
+      }
 
 }
 
@@ -222,6 +212,7 @@ const postDog = async (req,res) =>{
           const imageUrls = await Promise.all(imageUploadPromises);
       
           const date = new Date().toISOString();
+          
           const dog = await Dog.create({
             name,
             email,
@@ -233,6 +224,7 @@ const postDog = async (req,res) =>{
             date: date,
             description,
             images: imageUrls,
+            userId:req.user.id
           });
       
 
@@ -242,6 +234,26 @@ const postDog = async (req,res) =>{
     }
     
 }
+
+const deleteDog = async (req, res) => {
+   
+    try {
+    
+      const dog = await Dog.findById(req.params.id);
+      if (!dog) {
+        return res.status(404).json({ error: 'Dog not found' });
+      }
+      if (dog.userId !== req.user.id) {
+        return res.status(403).json({ error: 'Unauthorized action' });
+      }
+  
+      await dog.deleteOne();
+      return res.status(200).json({ message: 'Dog deleted successfully' });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
+  };
 
 const getBreeds = async(req,res) =>{
     try {
@@ -260,7 +272,7 @@ const getBreeds = async(req,res) =>{
 
 const getDogs = async (req, res) => {
     try {
-      const dogs = await Dog.find().select('name breed location images age location description contact');
+      const dogs = await Dog.find().select('name breed location images age location description contact userId');
   
       res.json(dogs);
     } catch (error) {
@@ -296,5 +308,6 @@ module.exports={
     postDog,
     getBreeds,
     getDogDetails,
-    getDogs
+    getDogs,
+    deleteDog
 }

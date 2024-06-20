@@ -11,7 +11,8 @@ const dogSchema = new Schema({
     location: {type:String, required:true},
     contact: {type: Number,required:true},
     description : {type: String},
-    images: { type: [String], required: true }
+    images: { type: [String], required: true },
+    userId: String
 
 })
 

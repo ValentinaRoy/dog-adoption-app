@@ -13,16 +13,14 @@
 
 .modal-content {
     background-color: #f4f1de;
-    padding: 20px;
     position: relative;
     overflow-y: auto;
-    width: auto;
 }
 
 .close-button {
     position: absolute;
     top: 10px;
-    right: 10px;
+    right: 5px;
     background: none;
     border: none;
     font-size: 20px;
@@ -33,7 +31,7 @@
 .dog-adoption-card {
     padding: 20px;
     margin: 25px;
-    width: 500px;
+    width: fit-content;
     background-color: #3d405b;
     box-sizing: border-box;
     border-radius: 10px;

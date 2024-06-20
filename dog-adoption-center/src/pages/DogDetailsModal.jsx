@@ -1,9 +1,10 @@
 import React from 'react';
 
 const DogDetailsModal = ({ dog, onClose }) => {
+
     return (
-        <div className="modal">
-            <div className="modal-content">
+        <div className="dog-modal">
+            <div className="dog-modal-content">
                 <span className="close" onClick={onClose}>&times;</span>
                 <h2>{dog.name}</h2>
                 <p><strong>Breed:</strong> {dog.breed}</p>
@@ -17,6 +18,7 @@ const DogDetailsModal = ({ dog, onClose }) => {
                         <img key={index} src={image} alt={`${dog.name} ${index}`} />
                     ))}
                 </div>
+
             </div>
         </div>
     );

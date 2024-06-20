@@ -26,7 +26,6 @@ export default function Login() {
           else{
             setData({...data, password: '' });
             toast.success('Login successfully !')
-            
             navigate('/browse')
             window.location.reload();
           }

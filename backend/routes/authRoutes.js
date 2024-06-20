@@ -13,10 +13,11 @@ const {
     getBreeds,
     getCities,
     getDogs,
-    getDogDetails
+    getDogDetails,
+    deleteDog
 } = require('../controllers/authControllers');
 const { get } = require('mongoose');
-
+const authenticateJWT = require('../middleware/authMiddleware');
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 //middleware
@@ -30,13 +31,14 @@ router.use(
 
 router.post('/register',registerUser);
 router.post('/login',loginUser);
-router.get('/profile',getProfile);
+router.get('/profile',authenticateJWT,getProfile);
 router.post('/logout',logoutUser)
 router.post('/requestPasswordReset', requestPasswordReset);
 router.post('/resetPassword', resetPassword);
-router.post('/postDog', upload.array('images', 10), postDog);
+router.post('/postDog', upload.array('images', 10), authenticateJWT,postDog);
 router.get('/breeds',getBreeds);
 router.get('/dogs', getDogs);
-router.get('/dogs/:id', getDogDetails);
+router.get('/dogs/:id',getDogDetails);
+router.delete('/dogs/:id',authenticateJWT,deleteDog)
 
 module.exports = router;
