@@ -45,22 +45,29 @@ export default function NavBar() {
       <nav className={dropdown ? 'nav-menu active' : 'nav-menu'}>
         
         <ul className="nav-menu-items" >
+
           <li>
-            <Link to="/" onClick={() => setDropdown(false)} >Home</Link>
+            <Link to="/" onClick={() => setDropdown(false)} >About Us</Link>
+          </li>
+          <li>
+            <Link to="/browse" onClick={() => setDropdown(false)} >Adopt a Dog</Link>
           </li>
           <li>
             <Link to="/login" onClick={() => setDropdown(false)} >Login</Link>
           </li>
-          <li>
-            <Link to="/browse" onClick={() => setDropdown(false)} >Browse</Link>
-          </li>
+          
           <li>
             <Link to="/register" onClick={() => setDropdown(false)} >Register</Link>
           </li>
           {user &&
-          (<li>
+
+          ( <><li>
+            <Link to="/myProfile" onClick={() => setDropdown(false)} >Profile</Link>
+          </li>
+          
+          <li>
               <button className="logout-btn" onClick={onClick}>Logout</button>
-          </li>)
+          </li></>)
           }
         </ul>
       </nav>

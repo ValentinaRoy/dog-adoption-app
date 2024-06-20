@@ -9,6 +9,8 @@
 .options{
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
     background-color: #3d405b;
     padding: 1em;
 }
@@ -16,7 +18,7 @@
 .post-dog-btn{
     border: none;
     border-radius: 4px;
-    padding: 5px;
+    padding: 10px;
     color: #3d405b;
     cursor: pointer;
     background-color: #f4f1de;
@@ -97,7 +99,6 @@
 .dog-info p{
     text-align: left;
 }
-/* Modal Styles */
 .dog-modal {
     display: flex;
     justify-content: center;
@@ -112,24 +113,119 @@
 }
 
 .dog-modal-content {
-    background: #fff;
+    background: #f4f1de;
     padding: 20px;
     width: 90%;
     max-width: 500px;
     position: relative;
+    color: #e07a5f;
 }
 
+.dog-modal-content h2{
+    text-align: center;
+}
 .close {
     position: absolute;
     top: 10px;
     right: 10px;
     font-size: 24px;
     cursor: pointer;
+    color: #e07a5f;
+}
+
+.dog-images {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-top: 20px;
 }
 
 .dog-images img {
-    width: 100px;
-    height: auto;
-    margin: 5px;
-    border-radius: 8px;
+    max-width: 400px;
+    max-height: 400px;
+}
+
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: #e07a5f;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    background-color: transparent;
+    user-select: none;
+    border: none;
+}
+
+.prev {
+    left: 0;
+}
+
+.next {
+    right: 0;
+}
+
+.prev:hover, .next:hover {
+   color: #d93c11;
+}
+
+
+.filter-options{
+    display: flex;
+    flex: 1;
+    justify-content: start;
+    align-items: center;
+}
+
+.filter-options input[type="text"]{
+    height: fit-content;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+.filter-options button{
+    height: fit-content;
+    border: none;
+    border-radius: 4px;
+    padding: 10px;
+    color: #3d405b;
+    cursor: pointer;
+    background-color: #f4f1de;
+    margin: 10px;
+}
+
+.filter-options button:hover{
+    color: #e07a5f;
+    background-color: #f4f1de;
+}
+
+
+.react-select{
+    width: fit-content;
+    padding:10px;
+    font-size: small;
+}
+
+.pagination-container {
+    color: #e07a5f;
+    text-align: center;
+}
+
+.pagination-container button{
+    color: #e07a5f;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.pagination-container button:hover{
+    color: #3d405b;
+    
 }

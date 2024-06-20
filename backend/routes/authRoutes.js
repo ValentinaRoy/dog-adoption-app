@@ -11,7 +11,6 @@ const {
     resetPassword, 
     postDog,
     getBreeds,
-    getCities,
     getDogs,
     getDogDetails,
     deleteDog
@@ -20,7 +19,6 @@ const { get } = require('mongoose');
 const authenticateJWT = require('../middleware/authMiddleware');
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
-//middleware
 
 router.use(
     cors({

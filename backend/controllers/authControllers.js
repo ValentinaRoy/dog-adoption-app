@@ -208,10 +208,9 @@ const postDog = async (req,res) =>{
               }).end(file.buffer);
             })
           );
-      
-          const imageUrls = await Promise.all(imageUploadPromises);
-      
+          
           const date = new Date().toISOString();
+          const imageUrls = await Promise.all(imageUploadPromises);
           
           const dog = await Dog.create({
             name,
@@ -221,10 +220,10 @@ const postDog = async (req,res) =>{
             vaccinated,
             location,
             contact,
-            date: date,
             description,
             images: imageUrls,
-            userId:req.user.id
+            userId:req.user.id,
+            date: date
           });
       
 
@@ -271,13 +270,30 @@ const getBreeds = async(req,res) =>{
 }
 
 const getDogs = async (req, res) => {
+    
     try {
-      const dogs = await Dog.find().select('name breed location images age location description contact userId');
-  
-      res.json(dogs);
-    } catch (error) {
-      console.error('Error fetching dogs:', error);
-      res.status(500).json({ error: 'Internal Server Error' });
+
+        const { page = 1 } = req.query;
+        const perPage = 12; 
+
+        const skip = (parseInt(page) - 1) * perPage;
+
+        const dogs = await Dog.find()
+            .sort({ date: 1 }) // Sorting by date 
+            .skip(skip)
+            .limit(perPage)
+            .exec();
+        const totalCount = await Dog.countDocuments();
+        const totalPages = Math.ceil(totalCount / perPage);
+
+        res.json({
+            dogs,
+            currentPage: parseInt(page),
+            totalPages
+        });
+        } catch (error) {
+        console.error('Error fetching dogs:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
     }
   };
   
@@ -296,6 +312,7 @@ const getDogs = async (req, res) => {
       res.status(500).json({ error: 'Internal Server Error' });
     }
   };
+
 module.exports={
    
     registerUser,

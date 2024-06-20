@@ -4,7 +4,7 @@ import Select from 'react-select';
 import './DogAdoptionForm.css';
 import { toast } from 'react-hot-toast';
 
-const PostDog = ({ onClose ,fetchDogs }) => {
+const PostDog = ({ onClose  }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -18,7 +18,6 @@ const PostDog = ({ onClose ,fetchDogs }) => {
   });
 
   const [breedOptions, setBreedOptions] = useState([]);
-  const [locationOptions, setLocationOptions] = useState([]);
 
   useEffect(() => {
     const fetchBreeds = async () => {
@@ -123,13 +122,6 @@ const PostDog = ({ onClose ,fetchDogs }) => {
               <div className='input'>
                 <label>Location:</label>
                 <input type="text" name="location" value={formData.location} onChange={handleChange} placeholder='Enter your city' required />
-                {/* <Select
-                  name="location"
-                  options={locationOptions}
-                  onChange={handleSelectChange}
-                  placeholder="Select the location"
-                  isSearchable
-                /> */}
               </div>
               <div className='input'>
                 <label>Contact:</label>

@@ -7,12 +7,13 @@ const dogSchema = new Schema({
     age:{type:String, required:true},
     breed : {type:String, required:true},
     vaccinated: Boolean,
-    date: Date,
     location: {type:String, required:true},
     contact: {type: Number,required:true},
     description : {type: String},
     images: { type: [String], required: true },
-    userId: String
+    userId: String,
+    date:Date
+
 
 })
 
