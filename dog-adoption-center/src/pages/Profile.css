@@ -1,0 +1,94 @@
+.profile-container{
+    background-color: #f4f1decf;
+    padding: 50px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: #f4f1de;
+}
+
+.profile-card{
+    background-color: #3d405b;
+    width: fit-content;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.profile-details-card{
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+}
+.profile-img img{
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.fields{
+    margin: 5px;
+    width: 100%;
+
+}
+.fields button {
+    background-color: transparent;
+    border: none;
+    color: #f4f1de;
+    padding: 10px;
+}
+.fields input[type="email"],
+.fields input[type='text']{
+    padding: 10px;
+    width: 250px;
+    margin: 5px;
+    border-radius: 5px;
+    background-color: #f4f1decf;
+}
+
+.changePassword button{
+    width: 100%;
+    color : #fff;
+    background-color:#f4f1decf;
+    border:none;
+    padding:5px;
+    border-radius: 5px;
+    cursor: pointer;
+    } 
+.changePassword button:hover{
+       
+    color : #e07a5f;
+    background-color:#f4f1de;
+        
+}
+
+.passwordForm{
+    display: flex;
+    flex-direction: column;
+    background-color: #f4f1deab;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.passwordForm input[type='password']{
+    margin: 5px;
+    border-radius: 5px;
+    background-color: #f4f1decf;
+    border: none;
+    height: 25px;
+}
+
+.passwordForm button{
+    cursor: pointer;
+
+}
+.passwordForm button:hover{
+    color: #e07a5f;    
+}

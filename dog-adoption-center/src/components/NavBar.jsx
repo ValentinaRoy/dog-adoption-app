@@ -50,7 +50,7 @@ export default function NavBar() {
             <Link to="/" onClick={() => setDropdown(false)} >About Us</Link>
           </li>
           <li>
-            <Link to="/browse" onClick={() => setDropdown(false)} >Adopt a Dog</Link>
+            <Link to={!!user ? "/browse" : "/login"} onClick={() => setDropdown(false)} >Adopt a Dog</Link>
           </li>
           <li>
             <Link to="/login" onClick={() => setDropdown(false)} >Login</Link>

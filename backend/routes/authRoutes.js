@@ -13,7 +13,9 @@ const {
     getBreeds,
     getDogs,
     getDogDetails,
-    deleteDog
+    deleteDog,
+    editName,
+    changePassword
 } = require('../controllers/authControllers');
 const { get } = require('mongoose');
 const authenticateJWT = require('../middleware/authMiddleware');
@@ -38,5 +40,6 @@ router.get('/breeds',getBreeds);
 router.get('/dogs', getDogs);
 router.get('/dogs/:id',getDogDetails);
 router.delete('/dogs/:id',authenticateJWT,deleteDog)
-
+router.post('/saveName',authenticateJWT,editName)
+router.post('/changePassword',authenticateJWT,changePassword)
 module.exports = router;

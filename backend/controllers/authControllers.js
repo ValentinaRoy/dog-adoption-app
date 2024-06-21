@@ -313,6 +313,54 @@ const getDogs = async (req, res) => {
     }
   };
 
+const editName = async (req,res) =>{
+    const name = req.body.userName;
+    try {
+        const user = await User.findById(req.user.id);
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'User not found' });
+        }
+        user.name = name;
+        await user.save();
+
+        res.status(200).json({ success: true, user });
+
+    } catch (error) {
+        console.error('Error updating user name:', error);
+        res.status(500).json({ success: false, message: 'Internal Server Error' });
+    }
+}
+
+const changePassword = async (req,res) =>{
+    const user = await User.findById(req.user.id);
+    const newPassword = req.body.newPassword;
+    const oldPassword = req.body.oldPassword;
+   
+    try {
+        
+        const match = await comparePassword(oldPassword, user.password)
+
+        if(match){
+           
+            if (!user) {
+                return res.status(404).json({ success: false, message: 'User not found' });
+            }
+            const hashedPassword = await hashPassword(newPassword)
+            user.password = hashedPassword;
+            await user.save();
+    
+            res.status(200).json({ success: true, user });
+        }
+        else{
+            res.json({
+                error: 'Incorrect Password'
+            })
+        }
+    } catch (error) {
+        console.error('Error changing password:', error);
+        res.status(500).json({ success: false, error: 'Internal Server Error' });
+    }
+}
 module.exports={
    
     registerUser,
@@ -326,5 +374,7 @@ module.exports={
     getBreeds,
     getDogDetails,
     getDogs,
-    deleteDog
+    deleteDog,
+    editName,
+    changePassword
 }
