@@ -121,7 +121,7 @@ export default function Browse() {
         </div>
         <div >
           <button className='post-dog-btn' onClick={onClick}>{!showForm ? 'Post for adoption' : <FaPaw/>}</button>
-          {showForm && <PostDog onClose={onClick} fetchDogs={fetchDogs()}/>}
+          {showForm && <PostDog onClose={onClick} />}
         </div>
 
       </div>

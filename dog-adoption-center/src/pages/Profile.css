@@ -2,7 +2,8 @@
     background-color: #f4f1decf;
     padding: 50px;
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
     color: #f4f1de;
 }
@@ -43,6 +44,7 @@
     border: none;
     color: #f4f1de;
     padding: 10px;
+    cursor: pointer;
 }
 .fields input[type="email"],
 .fields input[type='text']{
@@ -91,4 +93,26 @@
 }
 .passwordForm button:hover{
     color: #e07a5f;    
+}
+
+.profile-dogs{
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(300px,1fr));
+    gap:2em;
+    width: 100%;
+}
+
+.post-dog button{
+    margin-top: 10px;
+    border: none;
+    border-radius: 4px;
+    padding: 10px;
+    color: #f4f1de;
+    cursor: pointer;
+    background-color: #3d405bd6;
+}
+
+.post-dog button:hover{
+    color: #e07a5f;
+    background-color: #3d405b;
 }

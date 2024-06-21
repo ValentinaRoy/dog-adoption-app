@@ -361,6 +361,18 @@ const changePassword = async (req,res) =>{
         res.status(500).json({ success: false, error: 'Internal Server Error' });
     }
 }
+
+const userDogs = async(req,res) =>{
+    const userId = req.query.userId;
+  try {
+    const dogs = await Dog.find({ userId: userId });
+    res.status(200).json({ dogs });
+  } catch (error) {
+    console.error('Error fetching user dogs:', error);
+    res.status(500).json({ message: 'Error fetching user dogs' });
+  }
+}
+
 module.exports={
    
     registerUser,
@@ -376,5 +388,6 @@ module.exports={
     getDogs,
     deleteDog,
     editName,
-    changePassword
+    changePassword,
+    userDogs
 }

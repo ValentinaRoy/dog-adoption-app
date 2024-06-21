@@ -2,14 +2,14 @@ import React, { useEffect, useState, useContext} from 'react'
 import axios from 'axios'
 import './Profile.css'
 import { UserContext } from '../../context/userContext'
-import { FaEdit } from 'react-icons/fa';
+import { FaEdit,FaPaw } from 'react-icons/fa';
 import {toast} from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom';
+import PostDog from './DogAdoptionForm';
 
 export default function Profile() {
 
   const {user,setUser} = useContext(UserContext);
-  console.log(user,"user")
   const [dogSrc,setDogSrc] = useState('');
   const [userName,setUserName] = useState(user.name)
   const email = user.email 
@@ -17,7 +17,10 @@ export default function Profile() {
   const [showPasswordForm, setShowPasswordForm] = useState(false);
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
+  const [dogs,setDogs] = useState([])
+  const [showForm,setShowForm] = useState(false);
   const navigate = useNavigate()
+
   const onEdit = () =>{
     setEditName(!editName)
   }
@@ -36,7 +39,8 @@ export default function Profile() {
 
   useEffect(()=>{
     fetchImage();
-  },[])
+    fetchDogs();
+  },[dogs.length])
 
   const onSave = async () => {
     try {
@@ -86,6 +90,31 @@ export default function Profile() {
     }
   };
 
+  const fetchDogs = async() =>{
+    try{
+      const response = await axios.get('/userDogs',{ params: { userId: user.id } })
+      setDogs(response.data.dogs);
+    } catch (error) {
+      console.error('Error fetching dogs:', error);
+    }
+  };
+
+  const handleDelete = async(dogId) => {
+     
+    try {
+        await axios.delete(`/dogs/${dogId}`);
+        setDogs(dogs.filter(dog => dog._id !== dogId));
+        toast.success('Dog post deleted successfully');
+    } catch (error) {
+        console.error('Error deleting dog post:', error);
+        toast.error('Failed to delete dog post');
+    }
+  };
+
+  const onClick = () =>{
+    setShowForm(!showForm);
+  }
+
   return (
     <div className='profile-container'>
         <div className='profile-card'>
@@ -126,7 +155,30 @@ export default function Profile() {
           </div>
         </div>
         <div className='profile-dogs'>
-          
+        {dogs.map((dog) => (
+          <div key={dog._id} className="dog-card" >
+            
+            <div className='dog-img'>
+              <img src={dog.images[0]} alt={dog.name} />
+            </div>
+            <div className='dog-info'>
+              <h3>{dog.name}</h3>
+              <p>breed: <b>{dog.breed}</b></p>
+              <p>location: <b>{dog.location}</b></p>
+              {user?.id === dog.userId && (
+                <button className='delete-dog-btn' onClick={(e) => {
+                  e.stopPropagation();
+                  handleDelete(dog._id);
+                }}>DELETE</button>
+              )}
+            </div>
+          </div>
+         ))}
+        </div>
+
+        <div className='post-dog'>
+          <button className='post-dog-btn' onClick={onClick}>{!showForm ? 'Post for adoption' : <FaPaw/>}</button>
+          {showForm && <PostDog onClose={onClick} />}
         </div>
     </div>
   )
