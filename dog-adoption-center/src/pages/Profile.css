@@ -116,3 +116,57 @@
     color: #e07a5f;
     background-color: #3d405b;
 }
+
+
+@media (max-width: 768px) {
+    .profile-container {
+        padding: 20px;
+    }
+
+    .profile-card {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .profile-img img {
+        width: 150px;
+        height: 150px;
+    }
+
+    .fields input[type="email"],
+    .fields input[type="text"] {
+        width: 100%;
+        margin: 0;
+    }
+
+    .profile-dogs {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1em;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-container {
+        padding: 10px;
+    }
+
+    .profile-card {
+        padding: 10px;
+    }
+
+    .profile-img img {
+        width: 100px;
+        height: 100px;
+    }
+
+    
+
+    .profile-dogs {
+        grid-template-columns: 1fr;
+        gap: 0.5em;
+    }
+
+    .post-dog button {
+        width: 100%;
+    }
+}

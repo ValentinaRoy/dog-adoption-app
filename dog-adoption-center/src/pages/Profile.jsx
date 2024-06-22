@@ -11,8 +11,7 @@ export default function Profile() {
 
   const {user,setUser} = useContext(UserContext);
   const [dogSrc,setDogSrc] = useState('');
-  const [userName,setUserName] = useState(user.name)
-  const email = user.email 
+  const [userName,setUserName] = useState("")
   const [editName,setEditName] = useState(true);
   const [showPasswordForm, setShowPasswordForm] = useState(false);
   const [oldPassword, setOldPassword] = useState('');
@@ -20,11 +19,12 @@ export default function Profile() {
   const [dogs,setDogs] = useState([])
   const [showForm,setShowForm] = useState(false);
   const navigate = useNavigate()
+  
 
   const onEdit = () =>{
     setEditName(!editName)
   }
-
+  
   const fetchImage = async () =>{
     try {
       const response = await axios.get('https://dog.ceo/api/breeds/image/random',{
@@ -40,7 +40,10 @@ export default function Profile() {
   useEffect(()=>{
     fetchImage();
     fetchDogs();
-  },[dogs.length])
+    if(!!user && !userName){
+      setUserName(user.name)
+    }
+  },[dogs.length,user])
 
   const onSave = async () => {
     try {
@@ -48,6 +51,9 @@ export default function Profile() {
       setUser({ ...user, userName }); 
       setEditName(true);
       toast.success("Name updated successfully")
+      toast.success("Please login again")
+      await axios.post('/logout')
+      navigate('/login')
 
     } catch (error) {
       console.error('Error saving the user name:', error);
@@ -134,7 +140,7 @@ export default function Profile() {
             </div>
             <div className='fields'>
               <label>Email: </label>
-              <input type='email' value={email}  disabled={true} />
+              <input type='email' value={!!user && user.email}  disabled={true} />
             </div>
 
             <div className='fields'>
