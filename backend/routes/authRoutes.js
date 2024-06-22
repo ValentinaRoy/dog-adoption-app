@@ -26,7 +26,7 @@ const upload = multer({ storage });
 router.use(
     cors({
         credentials: true,
-        origin: 'http://localhost:5173'
+        origin: 'https://66771a24ff107bc7f23e5060--taupe-choux-eac6f6.netlify.app/'
     })
 )
 

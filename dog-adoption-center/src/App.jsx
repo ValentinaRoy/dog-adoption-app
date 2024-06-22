@@ -13,7 +13,7 @@ import { UserContextProvider } from '../context/userContext';
 import Browse from './pages/Browse';
 import Profile from './pages/Profile';
 
-axios.defaults.baseURL='http://localhost:8000';
+axios.defaults.baseURL='https://forever-paws.onrender.com';
 axios.defaults.withCredentials = true;
 
 function App() {
