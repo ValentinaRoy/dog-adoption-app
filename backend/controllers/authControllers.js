@@ -91,7 +91,8 @@ const loginUser = async (req,res) =>{
                 res.cookie('token', token, {
                     httpOnly: true,// Set secure flag in production
                     secure: process.env.NODE_ENV === 'production',
-                    sameSite: 'Strict', // CSRF protection
+                    sameSite: 'Strict', // CSRF protection,
+                    maxAge: 24 * 60 * 60 * 1000,
                 }).json({ message: 'Login successful', user });
 
                 console.log('Cookie set:', res.cookies);
