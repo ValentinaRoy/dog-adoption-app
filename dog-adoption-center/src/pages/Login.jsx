@@ -4,12 +4,20 @@ import {toast} from 'react-hot-toast'
 import { Link, useNavigate } from 'react-router-dom';
 import './Login.css';
 
+import { useHistory } from 'react-router-dom';
+import { UserContext } from './UserContextProvider';
+
 export default function Login() {
     const navigate = useNavigate()
+    const { updateUserContext } = useContext(UserContext);
+
     const [data,setData] = useState({
         email:'',
         password:'',
     })
+
+    const history = useHistory();
+
     const loginUser = async (e)=>{
         e.preventDefault();
         const {email,password} = data;
@@ -26,8 +34,11 @@ export default function Login() {
           else{
             setData({...data, password: '' });
             toast.success('Login successfully !')
-            navigate('/browse')
-            window.location.reload();
+            // window.location.reload();
+            updateUserContext(data.user); // Update user context after successful login
+                history.push('/browse');
+            // navigate('/browse')
+            
           }
         } catch (error) {
           console.log(error);
