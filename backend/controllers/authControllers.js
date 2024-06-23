@@ -88,7 +88,11 @@ const loginUser = async (req,res) =>{
         if(match){
             jwt.sign({email: user.email, id: user._id, name: user.name},process.env.JWT_SECRET, {},(err,token)=>{
                 if(err) throw err;
-                res.cookie('token',token).json(user);
+                console.log('Generated Token:', token);
+                res.cookie('token', token, {
+                    httpOnly: true,// Set secure flag in production
+                    sameSite: 'Strict', // CSRF protection
+                }).json({ message: 'Login successful', user });
 
             })
         }
