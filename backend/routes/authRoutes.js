@@ -23,12 +23,27 @@ const authenticateJWT = require('../middleware/authMiddleware');
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
+// router.use(
+//     cors({
+//         credentials: true,
+//         origin: 'https://taupe-choux-eac6f6.netlify.app'
+//     })
+// )
+
+const allowedOrigins = ['http://localhost:5173', 'https://taupe-choux-eac6f6.netlify.app'];
+
 router.use(
     cors({
         credentials: true,
-        origin: 'https://taupe-choux-eac6f6.netlify.app'
+        origin: function (origin, callback) {
+            if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+                callback(null, true);
+            } else {
+                callback(new Error('Not allowed by CORS'));
+            }
+        }
     })
-)
+);
 
 router.post('/register',registerUser);
 router.post('/login',loginUser);
